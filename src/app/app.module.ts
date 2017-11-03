@@ -41,7 +41,6 @@ import { BasetempComponent } from './charts/extra-params-components/basetemp.com
 import { ChartComponent } from './charts/chart.component';
 import { CopyCurlComponent } from './charts/copy-curl.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HistoricComponent } from './charts/extra-params-components/historic.component';
 import { IndicatorListComponent } from './sidebar/indicator-list.component';
 import { LineGraphComponent } from './charts/line-graph.component';
 import { LoginComponent } from './login/login.component';
@@ -50,8 +49,10 @@ import { PageNotFoundComponent } from './http-status/page-not-found/page-not-fou
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { WaveComponent } from './ng2-spin-kit/wave.component';
 
-import { ThresholdComponent,
-         PercentileComponent } from './charts/extra-params-components/';
+import { HistoricComponent,
+         PercentileComponent,
+         PercentileHistoricComponent,
+         ThresholdComponent } from './charts/extra-params-components/';
 
 // App services
 import { apiHttpProvider } from './auth/api-http.provider';
@@ -80,6 +81,7 @@ const locationStrategyProvider = {
     HistoricComponent,
     CopyCurlComponent,
     PercentileComponent,
+    PercentileHistoricComponent,
     ChartComponent,
     DashboardComponent,
     IndicatorListComponent,
