@@ -4,8 +4,8 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, Va
 import { MapsAPILoader } from '@agm/core';
 import { City } from 'climate-change-components';
 import { Point } from 'geojson';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
+
 
 import { MapCell } from '../../models/map-cell.model';
 import { MapCellService } from '../../services/map-cell.service';

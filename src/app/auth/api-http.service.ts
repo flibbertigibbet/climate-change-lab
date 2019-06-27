@@ -1,9 +1,10 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptionsArgs,
          Response, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+
+
 
 import { ApiHttp } from 'climate-change-components';
 
@@ -28,7 +29,7 @@ export class LabApiHttp extends Http implements ApiHttp {
             if (error.status === 401 || error.status === 403) {
                 this.authService.logout();
             }
-            return Observable.throw(error);
+            return observableThrowError(error);
         });
     }
 

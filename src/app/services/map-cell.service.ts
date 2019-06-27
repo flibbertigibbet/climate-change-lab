@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Point } from 'geojson';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { MapCell } from '../models/map-cell.model';
 import { LabApiHttp } from '../auth/api-http.service';

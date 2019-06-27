@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs';
+
 import { apiHost } from '../constants';
 
 @Injectable()

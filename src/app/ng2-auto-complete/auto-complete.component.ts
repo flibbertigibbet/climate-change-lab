@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { AutoComplete } from './auto-complete';
 
 /**

@@ -12,9 +12,7 @@ import {
 
 import * as cloneDeep from 'lodash.clonedeep';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 
 import {
   Chart,
