@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { flatMap } from 'rxjs/operators';
 
 import { Project } from '../models/project.model';
 import { ProjectService } from '../services/project.service';
@@ -34,9 +35,9 @@ export class DashboardComponent implements OnInit {
     public deleteProject(project: Project) {
         const projectIndex = this.projects.findIndex(p => p.id === project.id);
         // Ensure delete completes before requerying for all projects
-        this.projectService.remove(project.id).flatMap(() => {
+        this.projectService.remove(project.id).pipe(flatMap(() => {
                 return this.projectService.list();
-            }).subscribe(data => {
+            })).subscribe(data => {
                 this.projects = data;
                 let page = this.currentPage;
                 // Switch to previous page if the deleted project is the last project and is also

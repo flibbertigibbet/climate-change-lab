@@ -1,7 +1,8 @@
+import { Response } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
 import { Point } from 'geojson';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { MapCell } from '../models/map-cell.model';
 import { LabApiHttp } from '../auth/api-http.service';
@@ -15,8 +16,8 @@ export class MapCellService {
     nearest(point: Point, distance: number): Observable<MapCell[]> {
         const url = `${apiHost}/api/map-cell/${point.coordinates[1]}/${point.coordinates[0]}/?distance=${distance}`;
         return this.apiHttp.get(url)
-            .map((resp) => {
+            .pipe(map((resp) => {
                 return resp.json() || [] as MapCell[];
-            });
+            }));
     }
 }

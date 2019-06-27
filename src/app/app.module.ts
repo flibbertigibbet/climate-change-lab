@@ -1,9 +1,9 @@
 // Angular imports
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HttpClientModule, HttpRequest, HttpXhrBackend } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 
 // 3rd party modules
 import { AgmCoreModule } from '@agm/core';
@@ -80,7 +80,7 @@ const AGM_CONFIG = {
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     routing,
     AgmCoreModule.forRoot(AGM_CONFIG),
     BsDropdownModule.forRoot(),

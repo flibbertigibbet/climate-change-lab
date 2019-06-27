@@ -4,8 +4,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, Va
 import { MapsAPILoader } from '@agm/core';
 import { City } from 'climate-change-components';
 import { Point } from 'geojson';
-import { Observable } from 'rxjs';
-
+import { of, Observable } from 'rxjs';
 
 import { MapCell } from '../../models/map-cell.model';
 import { MapCellService } from '../../services/map-cell.service';
@@ -126,7 +125,7 @@ export class CityDropdownComponent implements OnInit, ControlValueAccessor, Vali
 
         this.mapCellService.nearest(point, environment.distance)
             .catch((err: Response) => {
-                return Observable.of([]);
+                return of([]);
             })
             .subscribe((cells: MapCell[]) => {
                 let city;

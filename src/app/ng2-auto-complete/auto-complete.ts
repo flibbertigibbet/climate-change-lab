@@ -1,6 +1,8 @@
+import { Response } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Response } from '@angular/http';
+import { map } from 'rxjs/operators';
+
 import { LabApiHttp } from '../auth/api-http.service';
 
 /**
@@ -34,13 +36,13 @@ export class AutoComplete {
    */
   getRemoteData(options: any): Observable<Response> {
 
-    let keyValues: any[] = [];
+    const keyValues: any[] = [];
     let url = '';
 
-    for (let key in options) {
+    for (const key in options) {
       if (options.hasOwnProperty(key)) {
         // replace all keyword to value
-        let regexp: RegExp = new RegExp(':' + key, 'g');
+        const regexp: RegExp = new RegExp(':' + key, 'g');
 
         url = this.source;
         if (url.match(regexp)) {
@@ -52,21 +54,21 @@ export class AutoComplete {
     }
 
     if (keyValues.length) {
-      let qs = keyValues.join('&');
+      const qs = keyValues.join('&');
       url += url.match(/\?[a-z]/i) ? qs : ('?' + qs);
     }
 
     return this.apiHttp.get(url)
-      .map(resp => resp.json())
-      .map(resp => {
+      .pipe(map(resp => resp.json()))
+      .pipe(map(resp => {
         let list = resp.data || resp;
         if (this.pathToData) {
-          let paths = this.pathToData.split('.');
+          const paths = this.pathToData.split('.');
           paths.forEach(prop => list = list[prop]);
         }
 
         return list;
-      });
+      }));
   };
 }
 

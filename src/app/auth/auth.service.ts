@@ -1,7 +1,8 @@
+import { Headers, HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { apiHost } from '../constants';
 
@@ -13,7 +14,7 @@ export class AuthService {
 
     // TODO: Inject a window or localStorage service here to abstract implicit
     //       dependency on window
-    constructor(protected http: Http, protected router: Router) {}
+    constructor(protected http: HttpClient, protected router: Router) {}
 
     getToken(): string {
         return window.localStorage.getItem(this.LOCALSTORAGE_TOKEN_KEY) || null;
@@ -25,23 +26,23 @@ export class AuthService {
     }
 
     isAuthenticated(): Observable<boolean> {
-        return this.acquireTokenFromApi().map(response => {
+        return this.acquireTokenFromApi().pipe(map(response => {
             return !!this.getToken();
-        });
+        }));
     }
 
     acquireTokenFromApi(): Observable<any> {
         // Attempts to request a token from the API, relying on the user having
         // already logged in and able to use cookie based authentication
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers, withCredentials: true });
+        const options = { headers: headers, withCredentials: true }
         const url = `${apiHost}/api-token/`;
-        return this.http.get(url, options).map(response => {
+        return this.http.get(url, options).pipe(map(response => {
             const token = response.json().token;
             const email = response.json().email;
             this.setToken(token);
             this.setEmail(email);
-        }).catch((error: Response) => {
+        })).catch((error: Response) => {
             if (error.status === 401 || error.status === 403) {
                 this.setToken(null);
                 this.setEmail(null);

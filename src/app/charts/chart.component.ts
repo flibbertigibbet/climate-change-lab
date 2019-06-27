@@ -1,4 +1,4 @@
-import {
+    import {
     AfterViewInit,
     ChangeDetectorRef,
     Component,
@@ -13,6 +13,7 @@ import {
 import * as cloneDeep from 'lodash.clonedeep';
 
 import { Observable ,  Subscription } from 'rxjs';
+import { forkJoin } from 'rxjs/operators';
 
 import {
   Chart,
@@ -163,7 +164,7 @@ export class ChartComponent implements OnChanges, OnDestroy, AfterViewInit {
           this.city.geometry,
           queryOpts,
         );
-        this.dataSubscription = Observable.forkJoin(
+        this.dataSubscription = forkJoin(
             historical,
             future
         ).subscribe(data => {

@@ -1,8 +1,8 @@
 
 import {throwError as observableThrowError,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ConnectionBackend, Http, Headers, Request, RequestOptions, RequestOptionsArgs,
-         Response, URLSearchParams } from '@angular/http';
+import { HttpBackend, HttpClient, HttpRequest, HttpHeaders,
+         HttpResponse, URLSearchParams } from '@angular/common/http';
 
 
 
@@ -16,15 +16,15 @@ import { AuthService } from './auth.service';
  * and redirects unauthorized responses to the API login page.
  */
 @Injectable()
-export class LabApiHttp extends Http implements ApiHttp {
+export class LabApiHttp extends HttpClient implements ApiHttp {
 
-    constructor(protected _backend: ConnectionBackend,
-                protected _defaultOptions: RequestOptions,
+    constructor(protected _backend: HttpBackend,
+                protected _defaultOptions: HttpRequest,
                 protected authService: AuthService) {
         super(_backend, _defaultOptions);
     }
 
-    request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
+    request(url: string | Request, options?: any): Observable<Response> {
         return super.request(url, this.appendAPIHeaders(options)).catch((error: Response) => {
             if (error.status === 401 || error.status === 403) {
                 this.authService.logout();
@@ -33,23 +33,23 @@ export class LabApiHttp extends Http implements ApiHttp {
         });
     }
 
-    get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    get(url: string, options?: any): Observable<Response> {
         return super.get(url, this.appendAPIHeaders(options));
     }
 
-    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    post(url: string, body: any, options?: any): Observable<Response> {
         return super.post(url, body, this.appendAPIHeaders(options));
     }
 
-    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body: any, options?: any): Observable<Response> {
         return super.put(url, body, this.appendAPIHeaders(options));
     }
 
-    delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    delete(url: string, options?: any): Observable<Response> {
         return super.delete(url, this.appendAPIHeaders(options));
     }
 
-    private appendAPIHeaders(options?: RequestOptionsArgs): RequestOptionsArgs {
+    private appendAPIHeaders(options?: any): any {
         const token = this.authService.getToken();
         if (!token) {
             this.authService.logout();

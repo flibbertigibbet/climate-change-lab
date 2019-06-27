@@ -1,10 +1,10 @@
-import { Http, XHRBackend, RequestOptions } from '@angular/http';
+import { HttpClient, HttpRequest, HttpXhrBackend } from '@angular/common/http';
 
 import { LabApiHttp } from './api-http.service';
 import { AuthService } from './auth.service';
 
-export function apiHttpLoader(xhrBackend: XHRBackend,
-                              requestOptions: RequestOptions,
+export function apiHttpLoader(xhrBackend: HttpXhrBackend,
+                              requestOptions: HttpRequest<any>,
                               authService: AuthService) {
                                   return new LabApiHttp(xhrBackend, requestOptions, authService);
                               }
@@ -12,5 +12,5 @@ export function apiHttpLoader(xhrBackend: XHRBackend,
 export let apiHttpProvider = {
     provide: LabApiHttp,
     useFactory: apiHttpLoader,
-    deps: [XHRBackend, RequestOptions, AuthService]
+    deps: [HttpXhrBackend, HttpRequest, AuthService]
 };
